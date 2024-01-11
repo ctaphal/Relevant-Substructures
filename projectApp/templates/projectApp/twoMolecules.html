@@ -1,0 +1,15 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+  <h1>Comparing Subgraphs of Two Complex Structures</h1>
+  <form action="{% url 'inputMolecules' %}" method="post">
+    {% csrf_token %}
+    
+    <label for="moleculeInput">Enter your first molecule</label>
+    <textarea id="moleculeInput"></textarea>
+    <button class="btn btn-primary" type="submit">Submit</button>
+
+    <label for="moleculeInput">Enter your second molecule</label>
+    <textarea id="moleculeInput"></textarea>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+{% endblock %}

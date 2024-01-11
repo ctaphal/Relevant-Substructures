@@ -1,17 +1,9 @@
 {% extends 'shared/base.html' %}
 {% block content %}
   <h1>Comparing Subgraphs of Complex Structures</h1>
-  <form action="{% url 'inputMolecules' %}" method="post">
-    {% csrf_token %}
-    
-    <label for="structures">How many structures do you want to compare?</label>
-    <select id="structures">
-      <button value="1">1</button>
-      <button value="2">2</button>
-    </select>
-  
-    <label for="moleculeInput">Enter your molecule</label>
-    <textarea id="moleculeInput"></textarea>
-    <button class="btn btn-primary" type="submit">Submit</button>
-  </form>
+  <label for="structures">How many structures do you want to compare?</label>
+  <select id="structures">
+    <button value="1" onclick="location.href='{% url 'oneMolecule' %}'">1</button>
+    <button value="2">2</button>
+  </select>
 {% endblock %}
