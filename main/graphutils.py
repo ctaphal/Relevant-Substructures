@@ -79,11 +79,11 @@ def iterate_submolecules(mol):
     # last submolecule gets no highlighting
     highlights.append([])
 
-    i = 0
-    for m, h in zip(submolecules, highlights):
+    return submolecules, highlights
+
+def draw_submolecules(submolecules, highlights):
+    for i, (m, h) in enumerate(zip(submolecules, highlights)):
         Draw.MolToFile(m, f"test{i}.png", size=(1000, 1000), highlightAtoms=flatten(h))
 
-        i += 1
-
 m = Chem.MolFromSmiles(smile)
-iterate_submolecules(m)
+draw_submolecules(*iterate_submolecules(m))
