@@ -158,7 +158,6 @@ def nth_smallest_submolecule(n, submolecules, highlights):
     return Chem.MolToSmiles(submol), submol_image, annotated_molecule_image
 
 def two_molecules(ms):
-    ms = ["CCC1CC2C1CN2", "C1CC2C1CC2CF"]
     ms = list(map(Chem.MolFromSmiles, ms))
     
     i = Chem.Draw.MolsToGridImage(ms, subImgSize=(1050,1050))
