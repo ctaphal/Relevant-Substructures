@@ -105,17 +105,56 @@ def draw_submolecules(submolecules, highlights):
             m,
             highlightAtoms=flatten(highlight),
             highlightAtomColors=colors,
-            highlightBonds=[]
         )
         drawer.FinishDrawing()
         images.append(drawer.GetDrawingText())
 
     return images
 
-if __name__ == "__main__":
-    m = Chem.MolFromSmiles("CC(=O)N[C@@H](CO)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@@H](CCCCN)C(=O)N1CCC[C@H]1C(=O)O")
-    images = draw_submolecules(*iterate_submolecules(m))
+def nth_smallest_submolecule(n, submolecules, highlights):
+    if n >= len(submolecules):
+        return None
+    drawer = Draw.rdMolDraw2D.MolDraw2DCairo(1000, 1000)
 
-    for i, image in enumerate(images):
-        with open(f"image-{i}.png", "wb") as f:
-            f.write(image)
+    m = submolecules[0]
+    submol = submolecules[-n-1]
+    highlight = m.GetSubstructMatches(submol)
+
+    drawer = Draw.rdMolDraw2D.MolDraw2DCairo(1000, 1000)
+
+    colors = {}
+
+    for j, match in enumerate(highlight):
+        for atom in match:
+            color = stock_colors[j % len(stock_colors)]
+            if atom in colors:
+                colors[atom] = average_tuples(color, colors[atom])
+            else:
+                colors[atom] = color
+
+    drawer.DrawMolecule(
+        m,
+        highlightAtoms=flatten(highlight),
+        highlightAtomColors=colors,
+    )
+    drawer.FinishDrawing()
+    annotated_molecule_image = drawer.GetDrawingText()
+
+    drawer = Draw.rdMolDraw2D.MolDraw2DCairo(1000, 1000)
+    drawer.DrawMolecule(submol)
+    drawer.FinishDrawing()
+    submol_image = drawer.GetDrawingText()
+
+    return Chem.MolToSmiles(submol), submol_image, annotated_molecule_image
+
+if __name__ == "__main__":
+    m = Chem.MolFromSmiles("CC(C)C[C@H](NC(=O)CNC(=O)[C@H](C)NC(=O)[C@H](CC(=O)O)NC(=O)[C@H](CC(=O)O)NC(=O)[C@H](C)NC(=O)[C@@H]1CCCN1C(=O)[C@H](CCCCN)NC(=O)CNC(=O)[C@@H]1CCCN1C(=O)[C@@H]1CCCN1C(=O)[C@@H]1CCCN1C(=O)[C@H](CCC(=O)O)NC(=O)CN)C(=O)N[C@H](C(=O)O)C(C)C")
+    submol = nth_smallest_submolecule(2, *iterate_submolecules(m))
+
+
+    print(submol[0])
+    with open(f"submol.png", "wb") as f:
+        f.write(submol[1])
+
+    with open(f"annotated_molecule.png", "wb") as f:
+        f.write(submol[2])
