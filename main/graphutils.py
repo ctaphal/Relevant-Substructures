@@ -108,3 +108,11 @@ def draw_submolecules(submolecules, highlights):
         images.append(drawer.GetDrawingText())
 
     return images
+
+if __name__ == "__main__":
+    m = Chem.MolFromSmiles("CC(=O)N[C@@H](CO)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@@H](CCCCN)C(=O)N1CCC[C@H]1C(=O)O")
+    images = draw_submolecules(*iterate_submolecules(m))
+
+    for i, image in enumerate(images):
+        with open(f"image-{i}.png", "wb") as f:
+            f.write(image)
