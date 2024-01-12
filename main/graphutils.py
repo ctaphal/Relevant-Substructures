@@ -15,7 +15,7 @@ def flatten(matrix):
         flat_list.extend(row)
     return flat_list
 
-def find_largest_repeated_submolecule(m):
+def find_best_repeated_submolecule(m):
     matches = []
     for i, bond in enumerate(m.GetBonds()):
         m_split = Chem.FragmentOnBonds(m, [bond.GetIdx()])
@@ -40,8 +40,6 @@ def find_largest_repeated_submolecule(m):
     if not matches:
         return None
 
-    median_size = statistics.median(len(mat) for mat in matches)
-
     def rank_match(mat):
         size = len(mat)
         atomic_weights = [m.GetAtomWithIdx(a).GetMass() for a in mat]
@@ -49,9 +47,6 @@ def find_largest_repeated_submolecule(m):
         average_atomic_weight = total_atomic_weight / len(atomic_weights)
 
         return size + average_atomic_weight
-
-    # for match in matches:
-    #     print(match, rank_match(match))
 
     best_match = max(matches, key=rank_match)
 
@@ -69,7 +64,7 @@ def iterate_submolecules(mol):
     submolecules = [mol]
     highlights = []
     while True:
-        result = find_largest_repeated_submolecule(submolecules[-1])
+        result = find_best_repeated_submolecule(submolecules[-1])
         if not result:
             break
 
