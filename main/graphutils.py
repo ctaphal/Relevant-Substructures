@@ -126,6 +126,9 @@ def nth_smallest_submolecule(n, submolecules, highlights):
 
     colors = {}
 
+    for a in submol.GetAtoms():
+        a.SetProp("atomLabel", "")
+
     for j, match in enumerate(highlight):
         for atom in match:
             color = stock_colors[j % len(stock_colors)]
