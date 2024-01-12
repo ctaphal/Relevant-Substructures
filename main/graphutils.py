@@ -3,6 +3,11 @@ from rdkit.Chem import rdFMCS
 from rdkit.Chem import Draw
 from rdkit.Chem.rdchem import RWMol
 from rdkit.Chem.rdchem import GetPeriodicTable
+from rdkit.Chem.Draw import MolsToGridImage
+from rdkit.Chem.rdFMCS import FindMCS
+from rdkit.Chem.Draw import MolToImage
+import io
+
 import functools
 
 def convertMolecule(molecule):
@@ -151,6 +156,24 @@ def nth_smallest_submolecule(n, submolecules, highlights):
     submol_image = drawer.GetDrawingText()
 
     return Chem.MolToSmiles(submol), submol_image, annotated_molecule_image
+
+def two_molecules(ms):
+    ms = ["CCC1CC2C1CN2", "C1CC2C1CC2CF"]
+    ms = list(map(Chem.MolFromSmiles, ms))
+    
+    i = Chem.Draw.MolsToGridImage(ms, subImgSize=(1050,1050))
+    imgByteArr = io.BytesIO()
+    i.save(imgByteArr, format=i.format)
+    
+
+    r = Chem.rdFMCS.FindMCS(ms)
+    # (i, r)
+    molCmn = MolToImage(r.queryMol, size=(1020,1020))
+    imgByteArr2 = io.BytesIO()
+    molCmn.save(imgByteArr2, format=molCmn.format)
+    
+    return imgByteArr.getvalue(), imgByteArr2.getvalue()
+
 
 if __name__ == "__main__":
     m = Chem.MolFromSmiles("CC(C)C[C@H](NC(=O)CNC(=O)[C@H](C)NC(=O)[C@H](CC(=O)O)NC(=O)[C@H](CC(=O)O)NC(=O)[C@H](C)NC(=O)[C@@H]1CCCN1C(=O)[C@H](CCCCN)NC(=O)CNC(=O)[C@@H]1CCCN1C(=O)[C@@H]1CCCN1C(=O)[C@@H]1CCCN1C(=O)[C@H](CCC(=O)O)NC(=O)CN)C(=O)N[C@H](C(=O)O)C(C)C")

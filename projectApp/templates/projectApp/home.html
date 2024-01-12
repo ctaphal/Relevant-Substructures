@@ -1,11 +1,11 @@
 {% extends 'shared/base.html' %}
 {% block content %}
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
     body {
       background-color: #d5ebd8;
     }
@@ -44,36 +44,28 @@
       background-color: #2980b9;
       color: #fff;
     }
-  </style>
-  <title>Attractive Page with Buttons</title>
-</head>
-<body>
-
-  <div class="container">
-    <h1 class="text-center">Comparing Subgraphs of Complex Structures</h1>
-    <br><br>
-    <h2 class="text-center">How many structures do you want to compare?</h2>
-    <br>
-    
-    <div class="row justify-content-center mt-3">
-      <div class="col-md-6 text-center">
-        
-        <a href="{% url 'oneMolecule' %}" class="btn btn-custom btn-lg btn-block" value="1">
-          One structure
-        </a>
-      </div>
-      <div class="col-md-6 text-center">
-        <a href="{% url 'twoMolecules' %}" class="btn btn-custom btn-lg btn-block" value="2">
-          Two structures
-        </a>
+    </style>
+    <title>Attractive Page with Buttons</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Comparing Subgraphs of Complex Structures</h1>
+      <h2 class="text-center">How many structures do you want to compare?</h2>
+      <div class="row justify-content-center mt-3">
+        <div class="col-md-6 text-center">
+          <a href="{% url 'oneMolecule' %}"
+             class="btn btn-custom btn-lg btn-block"
+             value="1">One structure</a>
+        </div>
+        <div class="col-md-6 text-center">
+          <a href="{% url 'collectInputTwo' %}"
+             class="btn btn-custom btn-lg btn-block"
+             value="2">Two structures</a>
+        </div>
       </div>
     </div>
-  </div>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 {% endblock %}

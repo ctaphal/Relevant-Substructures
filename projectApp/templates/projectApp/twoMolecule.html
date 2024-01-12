@@ -2,19 +2,16 @@
 {% block content %}
   <div class="container mt-5">
     <h1 class="text-center mb-4">Compare Subgraphs of Two Complex Structures</h1>
-    <form action="{% url 'collectInputTwo' %}" method="post">
+    <form action="{% url 'twoMolecule' %}" method="post">
       {% csrf_token %}
-      
       <div class="form-group">
         <label for="firstMoleculeInput">Enter your first molecule</label>
-        <textarea class="form-control" id="firstMoleculeInput" rows="3"></textarea>
+        <textarea class="form-control" name="firstMoleculeInput" rows="3"></textarea>
       </div>
-      
       <div class="form-group">
         <label for="secondMoleculeInput">Enter your second molecule</label>
-        <textarea class="form-control" id="secondMoleculeInput" rows="3"></textarea>
+        <textarea class="form-control" name="secondMoleculeInput" rows="3"></textarea>
       </div>
-      
       <button class="btn btn-success btn-lg btn-block" type="submit">Compare Now!</button>
     </form>
   </div>
