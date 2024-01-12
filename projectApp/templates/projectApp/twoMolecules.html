@@ -2,7 +2,7 @@
 {% block content %}
   <div class="container mt-5">
     <h1 class="text-center mb-4">Compare Subgraphs of Two Complex Structures</h1>
-    <form action="{% url 'inputMolecules' %}" method="post">
+    <form action="{% url 'collectInputTwo' %}" method="post">
       {% csrf_token %}
       
       <div class="form-group">
