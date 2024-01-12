@@ -1,11 +1,16 @@
 {% extends 'shared/base.html' %}
 {% block content %}
-  <h1>Comparing Subgraphs of One Complex Structure</h1>
-  <form action="{% url 'inputMolecules' %}" method="post">
-    {% csrf_token %}
-    
-    <label for="moleculeInput">Enter your molecule</label>
-    <textarea id="moleculeInput"></textarea>
-    <button class="btn btn-primary" type="submit">Submit</button>
-  </form>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Compare Subgraphs of a Complex Structure</h1>
+    <form action="{% url 'inputMolecules' %}" method="post">
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label for="moleculeInput">Enter your molecule</label>
+        <textarea class="form-control" id="moleculeInput" rows="3"></textarea>
+      </div>
+      
+      <button class="btn btn-success btn-lg btn-block" type="submit">Compare Now!</button>
+    </form>
+  </div>
 {% endblock %}

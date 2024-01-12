@@ -1,14 +1,77 @@
 {% extends 'shared/base.html' %}
 {% block content %}
-  <h1>Comparing Subgraphs of Complex Structures</h1>
-  <label for="structures">How many structures do you want to compare?</label>
-  
-  <br>
-  <a href="{% url 'inputOneMolecule' %}">
-    <button type="submit" value="1">1</button>
-  </a>
-  
-  <a href="{% url 'inputTwoMolecules' %}">
-    <button type="submit" value="2">2</button>
-  </a>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .btn-custom {
+      background-color: #4CAF50;
+      color: #fff;
+      border: 2px solid #4CAF50;
+    }
+
+    .btn-custom:hover {
+      background-color: #45a049;
+      color: #fff;
+    }
+
+    .btn-secondary-custom {
+      background-color: #3498db;
+      color: #fff;
+      border: 2px solid #3498db;
+    }
+
+    .btn-secondary-custom:hover {
+      background-color: #2980b9;
+      color: #fff;
+    }
+  </style>
+  <title>Attractive Page with Buttons</title>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="text-center">Comparing Subgraphs of Complex Structures</h1>
+    <h2 class="text-center">How many structures do you want to compare?</h2>
+    
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-6 text-center">
+        
+        <a href="{% url 'inputOneMolecule' %}" class="btn btn-custom btn-lg btn-block" value="1">
+          One Struture
+        </a>
+      </div>
+      <div class="col-md-6 text-center">
+        <a href="{% url 'inputTwoMolecules' %}" class="btn btn-custom btn-lg btn-block" value="2">
+          Two Strutures
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
 {% endblock %}
