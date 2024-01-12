@@ -15,7 +15,7 @@ def flatten(matrix):
         flat_list.extend(row)
     return flat_list
 
-def find_best_repeated_submolecule(m):
+def find_best_repeated_submolecule(m, original_molecule):
     matches = []
     for i, bond in enumerate(m.GetBonds()):
         m_split = Chem.FragmentOnBonds(m, [bond.GetIdx()])
@@ -34,37 +34,35 @@ def find_best_repeated_submolecule(m):
         matches_ = m.GetSubstructMatches(mcs_result, useChirality=True)
 
         if len(matches_) != 0:
-            match = matches_[0]
-            matches.append(match)
+            matches.append(matches_)
 
     if not matches:
         return None
 
+    # measures the proportion of the original molecule that the match covers
     def rank_match(mat):
-        size = len(mat)
-        atomic_weights = [m.GetAtomWithIdx(a).GetMass() for a in mat]
-        total_atomic_weight = sum(atomic_weights)
-        average_atomic_weight = total_atomic_weight / len(atomic_weights)
+        size = len(mat[0])
+        num_matches = len(mat)
 
-        return size + average_atomic_weight
+        return size
 
     best_match = max(matches, key=rank_match)
 
     match_mol = RWMol(m)
     idxs_to_remove = [
-        atom.GetIdx() for atom in match_mol.GetAtoms() if atom.GetIdx() not in best_match
+        atom.GetIdx() for atom in match_mol.GetAtoms() if atom.GetIdx() not in best_match[0]
     ]
 
     for idx in sorted(idxs_to_remove, reverse=True):
         match_mol.RemoveAtom(idx)
 
-    return (matches, match_mol)
+    return (best_match, match_mol)
 
 def iterate_submolecules(mol):
     submolecules = [mol]
     highlights = []
     while True:
-        result = find_best_repeated_submolecule(submolecules[-1])
+        result = find_best_repeated_submolecule(submolecules[-1], mol)
         if not result:
             break
 
