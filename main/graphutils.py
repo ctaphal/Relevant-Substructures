@@ -3,6 +3,7 @@ from rdkit.Chem import rdFMCS
 from rdkit.Chem import Draw
 from rdkit.Chem.rdchem import RWMol
 from rdkit.Chem.rdchem import GetPeriodicTable
+import functools
 
 def convertMolecule(molecule):
     return Chem.MolFromSmiles(molecule)
@@ -63,6 +64,7 @@ def find_best_repeated_submolecule(m, original_molecule):
 
     return (best_match, match_mol)
 
+@functools.lru_cache(maxsize=128)
 def iterate_submolecules(mol):
     submolecules = [mol]
     highlights = []
@@ -111,6 +113,7 @@ def draw_submolecules(submolecules, highlights):
 
     return images
 
+@functools.lru_cache(maxsize=128)
 def nth_smallest_submolecule(n, submolecules, highlights):
     if n >= len(submolecules):
         return None
