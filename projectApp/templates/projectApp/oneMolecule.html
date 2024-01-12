@@ -5,6 +5,10 @@
       background-color: #d5ebd8;
     }
 
+    #home {
+      margin-top: 3px;
+    }
+
     .btn {
       background-color: #005018;
       color: #fff;
@@ -23,9 +27,15 @@
       
       <button class="btn btn-success btn-lg btn-block" type="submit">Find most significant substructure!</button>
     </form>
+    
+    <button id="home" class="btn" type="submit" onclick="location.href='{% url 'home' %}'">Back to home</button>
 
+    {% comment %}
     <form action="{% url 'home' %}" method="get">
         <button class="btn btn-success btn-lg btn-block" type="submit">Back to home</button>
       </form>
+
+    {% endcomment %}
+    
   </div>
 {% endblock %}
