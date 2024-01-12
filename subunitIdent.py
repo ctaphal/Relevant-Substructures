@@ -1,8 +1,6 @@
 from rdkit import Chem
 from rdkit.Chem import BRICS
 from rdkit.Chem import FunctionalGroups
-from rdkit.Chem import rdchem
-from rdkit.Chem import rdmolfiles
 
 def subunitIdent(smilesIn):
 
