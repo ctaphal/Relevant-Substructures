@@ -1,5 +1,21 @@
 {% extends 'shared/base.html' %}
 {% block content %}
+<style>
+  body {
+    background-color: #d5ebd8;
+  }
+
+  #home {
+    margin-top: 3px;
+  }
+
+  .btn {
+    background-color: #005018;
+    color: #fff;
+    border: 2px solid #005018;
+  }
+
+</style>
   <div class="container mt-5">
     <h1 class="text-center mb-4">Compare Subgraphs of Two Complex Structures</h1>
     <form action="{% url 'twoMolecule' %}" method="post">
@@ -14,5 +30,7 @@
       </div>
       <button class="btn btn-success btn-lg btn-block" type="submit">Compare Now!</button>
     </form>
+
+    <button id="home" class="btn" type="submit" onclick="location.href='{% url 'home' %}'">Back to home</button>
   </div>
 {% endblock %}

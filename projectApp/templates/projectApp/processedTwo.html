@@ -1,11 +1,29 @@
 {% extends 'shared/base.html' %}
 {% block content %}
       <style>
+      body {
+    background-color: #d5ebd8;
+  }
+
   img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     float: left;
+  }
+
+  .btn-custom {
+      background-color: #005018; /* Green background color */
+      color: white; /* White text color */
+      padding: 15px; /* Add padding to the button */
+      border: none; /* Remove button border */
+      border-radius: 5px; /* Add border radius for rounded corners */
+      cursor: pointer; /* Add cursor pointer on hover */
+    }
+
+  .return-btn {
+    display: flex;
+    justify-content: center;
   }
       </style>
       <div class="container mt-5">
@@ -25,9 +43,10 @@
                  <img src="data:image/png;base64,{{ common_mol }}" width="90%">
             </div>
       </div>
-      <div class="col-md-6 text-center">
-            <a href="{% url 'collectInputTwo' %}"
+      <br>
+      <div class="return-btn">
+            <a href="{% url 'twoMolecule' %}"
                class="btn btn-custom btn-lg btn-block"
                value="Return">Return</a>
-      </div>
+          </div>
 {% endblock %}
