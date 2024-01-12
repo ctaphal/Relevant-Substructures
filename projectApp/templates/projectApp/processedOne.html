@@ -1,11 +1,14 @@
 {% extends 'shared/base.html' %}
 {% block content %}
   <style>
+  body {
+    background-color: #d5ebd8;
+  }
+
   img {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    float: left;
+    margin: 0 auto;
+    max-width: 100%;
   }
 
   .container {
@@ -29,18 +32,26 @@
     }
 
   .btn-custom {
-      background-color: #4CAF50; /* Green background color */
+      background-color: #005018; /* Green background color */
       color: white; /* White text color */
       padding: 15px; /* Add padding to the button */
       border: none; /* Remove button border */
       border-radius: 5px; /* Add border radius for rounded corners */
       cursor: pointer; /* Add cursor pointer on hover */
     }
+
+  .return-btn {
+    display: flex;
+    justify-content: center;
+  }
+
   </style>
   <div class="container mt-5">
     <h1 class="text-center mb-4">Most Significant Subunit of a Complex Structure</h1>
-    <h2>Your molecule is: {{ molecular_data }}</h2>
+    <br>
+    <h2>Substructures of your molecule:</h2>
   </div>
+
   <div class ="container">
     <div class="row">
       <div class="col">
@@ -64,7 +75,7 @@
   <div id="molecule-imgs">
     {% for molecular_data in molecular_datas %}<div>{{ molecular_data }}</div>{% endfor %}
   </div>
-  <div class="col-md-6 text-center">
+  <div class="return-btn">
     <a href="{% url 'oneMolecule' %}"
        class="btn btn-custom btn-lg btn-block"
        value="Return">Return</a>

@@ -1,5 +1,16 @@
 {% extends 'shared/base.html' %}
 {% block content %}
+  <style>
+    body {
+      background-color: #d5ebd8;
+    }
+
+    .btn {
+      background-color: #005018;
+      color: #fff;
+      border: 2px solid #005018;
+    }
+  </style>
   <div class="container mt-5">
     <h1 class="text-center mb-4">Most Significant Subunit of a Complex Structure</h1>
     <form action="{% url 'processDataOne' %}" method="post">
@@ -10,7 +21,7 @@
         <input type="text" class="form-control" name="user-input" rows="3"></textarea>
       </div>
       
-      <button class="btn btn-success btn-lg btn-block" type="submit">Find most significant subunit!</button>
+      <button class="btn btn-success btn-lg btn-block" type="submit">Find most significant substructure!</button>
     </form>
   </div>
 {% endblock %}
