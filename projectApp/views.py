@@ -26,14 +26,20 @@ def collectInputTwo(request):
 def displayImages(request, mol):
     smallest = nth_smallest_submolecule(1, *iterate_submolecules(mol))
     second_smallest = nth_smallest_submolecule(2, *iterate_submolecules(mol))
-
-    return render(request, "projectApp/processedOne.html", {
-        "smile_1": smallest[0], 
-        "submol_base64_1": base64.b64encode(smallest[1]).decode(), 
-        "annotated_molecule_base64_1": base64.b64encode(smallest[2]).decode(),
-        "smile_2": second_smallest[0], 
-        "submol_base64_2": base64.b64encode(second_smallest[1]).decode(), 
-        "annotated_molecule_base64_2": base64.b64encode(second_smallest[2]).decode()
+    if second_smallest:
+        return render(request, "projectApp/processedOne.html", {
+            "smile_1": smallest[0],
+            "submol_base64_1": base64.b64encode(smallest[1]).decode(),
+            "annotated_molecule_base64_1": base64.b64encode(smallest[2]).decode(),
+            "smile_2": second_smallest[0],
+            "submol_base64_2": base64.b64encode(second_smallest[1]).decode(),
+            "annotated_molecule_base64_2": base64.b64encode(second_smallest[2]).decode(),
+        })
+    else:
+        return render(request, "projectApp/processedOne.html", {
+            "smile_1": smallest[0],
+            "submol_base64_1": base64.b64encode(smallest[1]).decode(),
+            "annotated_molecule_base64_1": base64.b64encode(smallest[2]).decode(),
         })
 
 def processDataOne(request):

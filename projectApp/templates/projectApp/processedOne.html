@@ -20,12 +20,16 @@
         <img src="data:image/png;base64,{{ annotated_molecule_base64_1 }}"
              width="90%">
       </div>
-      <div class="col">
-        {{ smile_2 }}
-        <img src="data:image/png;base64,{{ submol_base64_2 }}" width="90%">
-        <img src="data:image/png;base64,{{ annotated_molecule_base64_2 }}"
-             width="90%">
-      </div>
+      {% block second %}
+        {% if smile_2 %}
+          <div class="col">
+            {{ smile_2 }}
+            <img src="data:image/png;base64,{{ submol_base64_2 }}" width="90%">
+            <img src="data:image/png;base64,{{ annotated_molecule_base64_2 }}"
+                 width="90%">
+          </div>
+        {% endif %}
+      {% endblock %}
     </div>
   </div>
   <div id="molecule-imgs">
