@@ -31,8 +31,9 @@ def twoMolecule(request):
     all_mols = two_molecules(ms) 
     # print(all_mols)
     return render(request, "projectApp/processedTwo.html", {
-        "mols": base64.b64encode(all_mols[0]).decode(),
-        "common_mol": base64.b64encode(all_mols[1]).decode(),
+        "mol1": base64.b64encode(all_mols[0]).decode(),
+        "mol2": base64.b64encode(all_mols[1]).decode(),
+        "common_mol": base64.b64encode(all_mols[2]).decode(),
         })
 
 def collectInputTwo(request):

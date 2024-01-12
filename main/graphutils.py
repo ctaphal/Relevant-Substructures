@@ -160,18 +160,22 @@ def nth_smallest_submolecule(n, submolecules, highlights):
 def two_molecules(ms):
     ms = list(map(Chem.MolFromSmiles, ms))
     
-    i = Chem.Draw.MolsToGridImage(ms, subImgSize=(1050,1050))
+    i = Chem.Draw.MolToImage(ms[0], size=(1000,1000))
     imgByteArr = io.BytesIO()
     i.save(imgByteArr, format=i.format)
+
+    j = Chem.Draw.MolToImage(ms[1], size=(1000,1000))
+    imgByteArr_ = io.BytesIO()
+    j.save(imgByteArr_, format=j.format)
     
 
     r = Chem.rdFMCS.FindMCS(ms)
     # (i, r)
-    molCmn = MolToImage(r.queryMol, size=(1020,1020))
+    molCmn = MolToImage(r.queryMol, size=(1000,1000))
     imgByteArr2 = io.BytesIO()
     molCmn.save(imgByteArr2, format=molCmn.format)
     
-    return imgByteArr.getvalue(), imgByteArr2.getvalue()
+    return imgByteArr.getvalue(), imgByteArr_.getvalue(), imgByteArr2.getvalue()
 
 
 if __name__ == "__main__":
