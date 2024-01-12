@@ -1,19 +1,17 @@
-import statistics
 from rdkit import Chem
 from rdkit.Chem import rdFMCS
 from rdkit.Chem import Draw
 from rdkit.Chem.rdchem import RWMol
 from rdkit.Chem.rdchem import GetPeriodicTable
 
-# smile = 'CC(=O)N[C@@H](CO)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@@H](CCCCN)C(=O)N1CCC[C@H]1C(=O)O'
-# smile = 'C[C@@H](NC(=O)[C@@H](N)Cc1ccc(O)cc1)C(=O)N[C@@H](Cc1ccccc1)C(=O)NCC(=O)N[C@@H](Cc1ccc(O)cc1)C(=O)N1CCC[C@H]1C(=O)N[C@@H](CO)C(N)=O'
-smile = 'CSCC[C@H](NC(=O)[C@H](Cc1ccccc1)n1c(=O)[nH]c2ccccc2c1=O)C(=O)N1CCC[C@@H]1C(=O)O'
-
 def flatten(matrix):
     flat_list = []
     for row in matrix:
         flat_list.extend(row)
     return flat_list
+
+def average_tuples(*ts):
+    return tuple(sum(es) / len(es) for es in zip(*ts))
 
 def find_best_repeated_submolecule(m, original_molecule):
     matches = []
@@ -48,6 +46,10 @@ def find_best_repeated_submolecule(m, original_molecule):
 
     best_match = max(matches, key=rank_match)
 
+    # checks if the submolecule is too small
+    if len(best_match[0]) <= 2:
+        return None
+
     match_mol = RWMol(m)
     idxs_to_remove = [
         atom.GetIdx() for atom in match_mol.GetAtoms() if atom.GetIdx() not in best_match[0]
@@ -72,11 +74,37 @@ def iterate_submolecules(mol):
     # last submolecule gets no highlighting
     highlights.append([])
 
+    # manually add the special case of drawing the smallest found submolecule on the original
+    smallest_submol = submolecules[-1]
+    submolecules.append(mol)
+    highlights.append(m.GetSubstructMatches(smallest_submol))
+
     return submolecules, highlights
 
-def draw_submolecules(submolecules, highlights):
-    for i, (m, h) in enumerate(zip(submolecules, highlights)):
-        Draw.MolToFile(m, f"test{i}.png", size=(1000, 1000), highlightAtoms=flatten(h))
+stock_colors = [(0,0,1,0.5), (0,1,0,0.5), (0,1,1,0.5), (1,0,0,0.5), (1,0,1,0.5), (1,1,0,0.5)]
 
-m = Chem.MolFromSmiles(smile)
-draw_submolecules(*iterate_submolecules(m))
+def draw_submolecules(submolecules, highlights):
+    images = []
+    for i, (m, highlight) in enumerate(zip(submolecules, highlights)):
+        drawer = Draw.rdMolDraw2D.MolDraw2DCairo(1000, 1000)
+
+        colors = {}
+
+        for j, match in enumerate(highlight):
+            for atom in match:
+                color = stock_colors[j % len(stock_colors)]
+                if atom in colors:
+                    colors[atom] = average_tuples(color, colors[atom])
+                else:
+                    colors[atom] = color
+
+        drawer.DrawMolecule(
+            m,
+            highlightAtoms=flatten(highlight),
+            highlightAtomColors=colors,
+            highlightBonds=[]
+        )
+        drawer.FinishDrawing()
+        images.append(drawer.GetDrawingText())
+
+    return images
