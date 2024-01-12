@@ -1,20 +1,39 @@
 {% extends 'shared/base.html' %}
 {% block content %}
+  <style>
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+  }
+  </style>
   <div class="container mt-5">
     <h1 class="text-center mb-4">Most Significant Subunit of a Complex Structure</h1>
-    
-    <h2>Your molecule is: {{molecular_data}}</h2>
+    <h2>Your molecule is: {{ molecular_data }}</h2>
   </div>
-
+  <div class ="container">
+    <div class="row">
+      <div class="col">
+        {{ smile_1 }}
+        <img src="data:image/png;base64,{{ submol_base64_1 }}" width="90%">
+        <img src="data:image/png;base64,{{ annotated_molecule_base64_1 }}"
+             width="90%">
+      </div>
+      <div class="col">
+        {{ smile_2 }}
+        <img src="data:image/png;base64,{{ submol_base64_2 }}" width="90%">
+        <img src="data:image/png;base64,{{ annotated_molecule_base64_2 }}"
+             width="90%">
+      </div>
+    </div>
+  </div>
   <div id="molecule-imgs">
-    {% for molecular_data in molecular_datas %}
-    <div>{{molecular_data}}</div> 
-    {% endfor %}
+    {% for molecular_data in molecular_datas %}<div>{{ molecular_data }}</div>{% endfor %}
   </div>
-
   <div class="col-md-6 text-center">
-    <a href="{% url 'oneMolecule' %}" class="btn btn-custom btn-lg btn-block" value="Return">
-      Return
-    </a>
+    <a href="{% url 'oneMolecule' %}"
+       class="btn btn-custom btn-lg btn-block"
+       value="Return">Return</a>
   </div>
 {% endblock %}

@@ -113,7 +113,6 @@ def draw_submolecules(submolecules, highlights):
 
     return images
 
-@functools.lru_cache(maxsize=128)
 def nth_smallest_submolecule(n, submolecules, highlights):
     if n >= len(submolecules):
         return None
