@@ -4,6 +4,9 @@ from rdkit.Chem import Draw
 from rdkit.Chem.rdchem import RWMol
 from rdkit.Chem.rdchem import GetPeriodicTable
 
+def convertMolecule(molecule):
+    return Chem.MolFromSmiles(molecule)
+
 def flatten(matrix):
     flat_list = []
     for row in matrix:
@@ -77,7 +80,7 @@ def iterate_submolecules(mol):
     # manually add the special case of drawing the smallest found submolecule on the original
     smallest_submol = submolecules[-1]
     submolecules.append(mol)
-    highlights.append(m.GetSubstructMatches(smallest_submol))
+    highlights.append(mol.GetSubstructMatches(smallest_submol))
 
     return submolecules, highlights
 

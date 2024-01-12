@@ -1,16 +1,16 @@
 {% extends 'shared/base.html' %}
 {% block content %}
   <div class="container mt-5">
-    <h1 class="text-center mb-4">Compare Subgraphs of a Complex Structure</h1>
-    <form action="{% url 'collectInputOne' %}" method="post">
+    <h1 class="text-center mb-4">Most Significant Subunit of a Complex Structure</h1>
+    <form action="{% url 'processDataOne' %}" method="post">
       {% csrf_token %}
       
       <div class="form-group">
         <label for="moleculeInput">Enter your molecule</label>
-        <textarea class="form-control" id="moleculeInput" rows="3"></textarea>
+        <textarea class="form-control" name="user-input" rows="3"></textarea>
       </div>
       
-      <button class="btn btn-success btn-lg btn-block" type="submit">Compare Now!</button>
+      <button class="btn btn-success btn-lg btn-block" type="submit">Find most significant subunit!</button>
     </form>
   </div>
 {% endblock %}

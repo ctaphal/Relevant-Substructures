@@ -1,0 +1,20 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Most Significant Subunit of a Complex Structure</h1>
+    
+    <h2>Your molecule is: {{molecular_data}}</h2>
+  </div>
+
+  <div id="molecule-imgs">
+    {% for molecular_data in molecular_datas %}
+    <div>{{molecular_data}}</div> 
+    {% endfor %}
+  </div>
+
+  <div class="col-md-6 text-center">
+    <a href="{% url 'oneMolecule' %}" class="btn btn-custom btn-lg btn-block" value="Return">
+      Return
+    </a>
+  </div>
+{% endblock %}
