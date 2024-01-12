@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("getMolecules/", views.getMolecules, name="getMolecules"),
-    path("inputMolecules/", views.inputMolecules, name="inputMolecules")
+    path("home/", views.home, name="home"),
+    path("inputMolecules/", views.inputMolecules, name="inputMolecules"),
+    path("inputOneMolecule/", views.inputOneMolecule, name="inputOneMolecule"),
+    path("inputTwoMolecules/", views.inputTwoMolecules, name="inputTwoMolecules")
 ]

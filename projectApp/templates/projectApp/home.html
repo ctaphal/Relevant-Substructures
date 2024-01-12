@@ -1,0 +1,14 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+  <h1>Comparing Subgraphs of Complex Structures</h1>
+  <label for="structures">How many structures do you want to compare?</label>
+  
+  <br>
+  <a href="{% url 'inputOneMolecule' %}">
+    <button type="submit" value="1">1</button>
+  </a>
+  
+  <a href="{% url 'inputTwoMolecules' %}">
+    <button type="submit" value="2">2</button>
+  </a>
+{% endblock %}
